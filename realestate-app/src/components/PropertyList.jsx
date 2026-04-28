@@ -1,9 +1,9 @@
-
-// 物件一覧カード表示（propsで受け取る）
 const PropertyList = ({ properties }) => (
   <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
     {properties.length === 0 ? (
-      <p style={{ color: '#6b6375', margin: '32px 0', textAlign: 'center' }}>物件がありません</p>
+      <p style={{ color: '#6b6375', margin: '32px 0', textAlign: 'center' }}>
+        物件がありません
+      </p>
     ) : (
       properties.map((property) => (
         <div
@@ -19,9 +19,15 @@ const PropertyList = ({ properties }) => (
             margin: '0 auto',
           }}
         >
-          <h2 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#2d1b4e', margin: 0 }}>{property.name}</h2>
-          <p style={{ margin: '8px 0 0 0', color: '#6b6375' }}>家賃: <span style={{ fontWeight: 500 }}>{property.price ?? property.rent}円</span></p>
-          <p style={{ margin: '2px 0 0 0', color: '#6b6375' }}>エリア: <span style={{ fontWeight: 500 }}>{property.area}</span></p>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#2d1b4e', margin: 0 }}>
+            {property.name}
+          </h2>
+          <p style={{ margin: '8px 0 0', color: '#6b6375' }}>
+            家賃：<span style={{ fontWeight: 500 }}>{property.price}</span>
+          </p>
+          <p style={{ margin: '2px 0 0', color: '#6b6375' }}>
+            エリア：<span style={{ fontWeight: 500 }}>{property.area}</span>
+          </p>
         </div>
       ))
     )}
