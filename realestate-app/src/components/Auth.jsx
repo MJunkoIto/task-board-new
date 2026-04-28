@@ -11,16 +11,44 @@ const Auth = ({ onAuth }) => {
   // ログイン処理
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    setMsg(error ? error.message : '');
-    if (!error) onAuth();
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        const detail = `ログイン失敗: ${error.message} (status: ${error.status ?? 'n/a'})`;
+        setMsg(detail);
+        alert(detail);
+        console.error('signIn error', error);
+        return;
+      }
+      setMsg('');
+      onAuth?.();
+    } catch (e) {
+      const detail = `例外発生: ${e?.message ?? e}`;
+      setMsg(detail);
+      alert(detail);
+      console.error(e);
+    }
   };
 
   // 会員登録処理
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const { error } = await supabase.auth.signUp({ email, password });
-    setMsg(error ? error.message : '確認メールを送信しました');
+    try {
+      const { error } = await supabase.auth.signUp({ email, password });
+      if (error) {
+        const detail = `登録失敗: ${error.message} (status: ${error.status ?? 'n/a'})`;
+        setMsg(detail);
+        alert(detail);
+        console.error('signUp error', error);
+        return;
+      }
+      setMsg('確認メールを送信しました');
+    } catch (e) {
+      const detail = `例外発生: ${e?.message ?? e}`;
+      setMsg(detail);
+      alert(detail);
+      console.error(e);
+    }
   };
 
   return (

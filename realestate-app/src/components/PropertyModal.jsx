@@ -18,7 +18,7 @@ const PropertyModal = ({ user, onClose, onSuccess }) => {
     const { error } = await supabase.from('properties').insert([
       {
         name: form.name,
-        price: Number(form.pricfe),
+        price: Number(form.price),
         area: form.area,
         layout: form.layout,
         user_id: user.id,

@@ -9,26 +9,46 @@ function Login() {
   const [isSignUp, setIsSignUp] = useState(false)
 
   const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    if (error) {
-      setMessage('ログイン失敗')
-    } else {
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      if (error) {
+        const detail = `ログイン失敗: ${error.message} (status: ${error.status ?? 'n/a'})`
+        setMessage(detail)
+        alert(detail)
+        console.error('signIn error', error)
+        return
+      }
       window.location.reload()
+    } catch (e) {
+      const detail = `例外発生: ${e?.message ?? e}`
+      setMessage(detail)
+      alert(detail)
+      console.error(e)
     }
   }
 
   const handleSignup = async () => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
-    if (error) {
-      setMessage('登録失敗')
-    } else {
-      setMessage('登録成功！')
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      })
+      if (error) {
+        const detail = `登録失敗: ${error.message} (status: ${error.status ?? 'n/a'})`
+        setMessage(detail)
+        alert(detail)
+        console.error('signUp error', error)
+        return
+      }
+      setMessage('登録成功！確認メールをご確認ください')
+    } catch (e) {
+      const detail = `例外発生: ${e?.message ?? e}`
+      setMessage(detail)
+      alert(detail)
+      console.error(e)
     }
   }
 
